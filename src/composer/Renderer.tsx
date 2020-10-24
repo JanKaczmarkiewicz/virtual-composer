@@ -1,12 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { ElementUpdatePayload } from "../App";
-import { Element, ElementDefinition } from "../data/initialData";
-import elements from "../elements";
-
-export type ElementUpdateHandler = (payload: ElementUpdatePayload) => void;
+import { RequestElementEditHandler } from "../App";
+import { ElementDefinition } from "../data/initialData";
+import elementsMap from "../elements";
 
 export type RendererProps = {
-  onUpdate: ElementUpdateHandler;
+  onUpdate: RequestElementEditHandler;
   element: ElementDefinition;
 };
 
@@ -27,7 +25,7 @@ const Renderer: FunctionComponent<RendererProps> = ({ onUpdate, element }) => {
 const ElementWrapper: FunctionComponent<RendererProps> = React.memo<
   RendererProps
 >((props) => {
-  const Widget = elements[props.element.elementType];
+  const Widget = elementsMap[props.element.elementType];
   return <Widget {...props} />;
 });
 
