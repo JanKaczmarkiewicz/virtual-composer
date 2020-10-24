@@ -1,7 +1,8 @@
-enum Element {
+export enum Element {
   SECTION,
   COLUMN,
   WIDGET,
+  ROOT,
 }
 
 export type ElementDefinition = {
@@ -24,7 +25,7 @@ const cN = (
   attributes: attributes ? attributes : {},
 });
 
-export default [
+export default cN(Element.ROOT, [
   cN(Element.SECTION, [
     cN(Element.COLUMN, [
       cN(Element.WIDGET, []),
@@ -56,4 +57,4 @@ export default [
       cN(Element.WIDGET, []),
     ]),
   ]),
-] as ElementDefinition[];
+]) as ElementDefinition;

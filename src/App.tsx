@@ -1,11 +1,18 @@
 import React, { FunctionComponent, useCallback, useReducer } from "react";
+import Renderer from "./composer/Renderer";
 import initialData, { ElementDefinition } from "./data/initialData";
 
 const UPDATE_ELEMENT = "UPDATE_ELEMENT";
-type State = ElementDefinition[];
+type State = ElementDefinition;
+export type ElementUpdatePayload = {
+  sectionName: string;
+  name: string;
+  value: any;
+};
+
 type Action = {
   type: typeof UPDATE_ELEMENT;
-  payload: { name: string; value: any };
+  payload: ElementUpdatePayload;
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -26,7 +33,7 @@ const App: FunctionComponent = () => {
     []
   );
 
-  return <Renderer data={state} onUpdate={onUpdate} />;
+  return <Renderer element={state} onUpdate={onUpdate} />;
 };
 
 export default App;
