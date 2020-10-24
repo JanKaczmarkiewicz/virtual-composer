@@ -4,7 +4,7 @@ enum Element {
   WIDGET,
 }
 
-type ElementDefinition = {
+export type ElementDefinition = {
   sectionName: string;
   attributes: Record<string, any>;
   elementType: Element;
