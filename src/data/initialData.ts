@@ -1,3 +1,6 @@
+import { CSSProperties } from "react";
+import { State } from "../reducers";
+
 export enum Element {
   SECTION,
   COLUMN,
@@ -12,49 +15,13 @@ export type ElementDefinition = {
   content: ElementDefinition[];
 };
 
-const id = () => Math.random().toString();
+const id = (): Id => Math.random().toString();
 
-const cN = (
-  elementType: Element,
-  content: ElementDefinition[],
-  attributes?: Record<string, any>
-): ElementDefinition => ({
-  sectionName: id(),
-  elementType,
-  content,
-  attributes: attributes ? attributes : {},
-});
+export type Id = keyof State;
 
-export default cN(Element.ROOT, [
-  cN(Element.SECTION, [
-    cN(Element.COLUMN, [
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-    ]),
-  ]),
-  cN(Element.SECTION, [
-    cN(Element.COLUMN, [
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-    ]),
-    cN(Element.COLUMN, [
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-    ]),
-  ]),
-  cN(Element.SECTION, [
-    cN(Element.COLUMN, [
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-    ]),
-    cN(Element.COLUMN, [
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-      cN(Element.WIDGET, []),
-    ]),
-  ]),
-]) as ElementDefinition;
+export type Node = {
+  type: Element;
+  childIds: Id[];
+  id: Id;
+  attributes: CSSProperties;
+};
