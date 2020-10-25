@@ -15,9 +15,8 @@ export type ElementDefinition = {
   content: ElementDefinition[];
 };
 
-const id = (): Id => Math.random().toString();
-
 export type Id = keyof State;
+export const id = (): Id => `${Math.random()}${Math.random()}`;
 
 export type Node = {
   type: Element;
