@@ -1,5 +1,5 @@
 import React, { CSSProperties, FunctionComponent } from "react";
-import { RendererProps } from "../composer/Renderer";
+import { ElementProps } from ".";
 
 const style: CSSProperties = {
   display: "flex",
@@ -7,7 +7,7 @@ const style: CSSProperties = {
   width: "100%",
 };
 
-const Root: FunctionComponent<RendererProps> = ({ children }) => {
+const Root: FunctionComponent<ElementProps> = ({ children }) => {
   return <div style={style}>{children}</div>;
 };
 

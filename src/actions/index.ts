@@ -59,3 +59,15 @@ export const removeChild = (
   type: REMOVE_CHILD,
   payload,
 });
+
+export const REQUEST_NODE_EDIT = "REQUEST_NODE_EDIT";
+export type RequestNodeEditAction = {
+  type: typeof REQUEST_NODE_EDIT;
+  payload: { nodeId: Id | null };
+};
+export const requestNodeEdit = (
+  payload: RequestNodeEditAction["payload"]
+): RequestNodeEditAction => ({
+  type: REQUEST_NODE_EDIT,
+  payload,
+});

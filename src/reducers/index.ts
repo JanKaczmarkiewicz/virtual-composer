@@ -9,12 +9,15 @@ import {
   DELETE_NODE,
   REMOVE_CHILD,
   UPDATE_NODE,
+  RequestNodeEditAction,
+  REQUEST_NODE_EDIT,
 } from "../actions";
-import { Element, Node } from "../data/initialData";
+import initialData, { Element, Id, Node } from "../data/initialData";
 import { deleteMany, getAllDescendantIds } from "./helpers";
 
 export type State = {
-  [key: string]: Node;
+  editedElementId: null | Id;
+  elements: { [key: string]: Node };
 };
 
 type Action =
@@ -22,6 +25,7 @@ type Action =
   | UpdateNodeAction
   | RemoveChildAction
   | CreateNodeAction
+  | RequestNodeEditAction
   | DeleteNodeAction;
 
 const node = (node: Node, action: Action): Node => {
@@ -56,19 +60,34 @@ const node = (node: Node, action: Action): Node => {
   }
 };
 
-export default (state: State = {}, action: Action) => {
-  const { nodeId } = action.payload;
+const initialState: State = {
+  elements: initialData,
+  editedElementId: null,
+};
+
+export default (state: State = initialState, action: Action): State => {
+  const nodeId = action?.payload?.nodeId as string;
   if (typeof nodeId === "undefined") {
     return state;
   }
 
   if (action.type === DELETE_NODE) {
-    const descendantIds = getAllDescendantIds(state, nodeId);
-    return deleteMany(state, [nodeId, ...descendantIds]);
+    const descendantIds = getAllDescendantIds(state.elements, nodeId);
+    return {
+      ...state,
+      elements: deleteMany(state.elements, [nodeId, ...descendantIds]),
+    };
+  }
+
+  if (action.type === REQUEST_NODE_EDIT) {
+    return {
+      ...state,
+      editedElementId: nodeId,
+    };
   }
 
   return {
     ...state,
-    [nodeId]: node(state[nodeId], action),
+    [nodeId]: node(state.elements[nodeId], action),
   };
 };

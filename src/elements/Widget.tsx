@@ -1,24 +1,26 @@
 import React, { CSSProperties, FunctionComponent } from "react";
-import { RendererProps } from "../composer/Renderer";
+import { useDispatch } from "react-redux";
+import { ElementProps } from ".";
+import { requestNodeEdit } from "../actions";
 
 const style: CSSProperties = {
-  backgroundColor: "white",
+  backgroundColor: "#5E8C61",
   minHeight: 50,
   display: "flex",
-  margin: "5px",
+  justifyContent: "space-between",
+  margin: 20,
 };
 
-const Widget: FunctionComponent<RendererProps> = ({
-  children,
-  element,
-  onUpdate,
-}) => {
+const Widget: FunctionComponent<ElementProps> = ({ element }) => {
+  const dispatch = useDispatch();
   const onEditClick = () => {
-    onUpdate({ sectionName: element.sectionName });
+    dispatch(requestNodeEdit({ nodeId: element.id }));
   };
   return (
     <div style={{ ...style, ...element.attributes }}>
-      <pre>{JSON.stringify(element.attributes)}</pre>
+      <pre style={{ display: "block" }}>
+        {JSON.stringify(element.attributes)}
+      </pre>
       <button onClick={onEditClick}>Edit</button>
     </div>
   );

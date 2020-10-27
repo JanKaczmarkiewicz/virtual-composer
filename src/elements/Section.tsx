@@ -1,16 +1,17 @@
 import React, { CSSProperties, FunctionComponent } from "react";
-import { RendererProps } from "../composer/Renderer";
+import { ElementProps } from ".";
 
 const style: CSSProperties = {
-  backgroundColor: "blue",
+  backgroundColor: "#94E8B4",
+  marginBottom: 5,
   display: "flex",
   flexDirection: "row",
   width: "100%",
-  minHeight: "50px",
-  padding: "10px",
+  minHeight: 50,
+  padding: 20,
 };
 
-const Section: FunctionComponent<RendererProps> = ({ children }) => {
+const Section: FunctionComponent<ElementProps> = ({ children }) => {
   return <div style={style}>{children}</div>;
 };
 
